@@ -14,6 +14,7 @@ export function CustomersList() {
   const [removeList, setRemoveList] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
   const [customerEditing, setCustomerEditing] = useState<ICustomer | null>(null)
+  const [search,setSearch] = useState<string>("")
 
   const changeRemoveList = (id: number) => {
     setRemoveList((prev) =>
@@ -62,6 +63,10 @@ export function CustomersList() {
       setLoading(false);
     }
   };
+    const filteredCustomers = allCustomers.filter((customer) =>
+  customer.name?.toLowerCase().includes(search.toLowerCase()) ||
+  customer.id.toString().includes(search)
+)
 
   useEffect(() => {
     getCustomers();
@@ -71,7 +76,7 @@ export function CustomersList() {
     <div>
       <div className="header-actions">
         <FormCustomer />
-        <SearchCustomers/>
+        <SearchCustomers value={search} onChange={setSearch} />
         <button
           className="submitButton error"
           onClick={handleDeleteSelected}
@@ -84,8 +89,8 @@ export function CustomersList() {
 
       {loading && <p>Carregando...</p>}
 
-     { allCustomers.length > 0  ? <div className="list">
-        {allCustomers.map((i) => (
+     { filteredCustomers.length > 0  ? <div className="list">
+        {filteredCustomers.map((i) => (
           <div key={i.id} className={`card-list ${Style.customerCard}`}>
             <label className={Style.checkboxWrapper + ` checkbox-wrapper`}>
               <input

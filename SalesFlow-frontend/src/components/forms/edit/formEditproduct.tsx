@@ -100,7 +100,7 @@ useEffect(() => {
   };
 
   return (
-    <div className={Style.modalFormProduct}>
+    <div className={Style.modalFormProduct} onClick={onClose}>
       <span className={Style.closeFormProduct} onClick={onClose}>
         <IoClose />
       </span>

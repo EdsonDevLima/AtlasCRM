@@ -36,3 +36,8 @@ export interface SalesResult {
   trackingCode?:string
   status: OrderStatus;
 }
+
+export type PropsSearch = {
+  value: string
+  onChange: (value: string) => void
+}

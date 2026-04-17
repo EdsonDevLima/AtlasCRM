@@ -13,7 +13,7 @@ export function SalesList() {
   const [allSales, setAllSales] = useState<SalesResult[]>([])
   const [removeList, setRemoveList] = useState<number[]>([])
   const [loading, setLoading] = useState(false)
-
+  const [search, setSearch] = useState("")
   const [saleEditing, setSaleEditing] = useState<SalesResult | null>(null)
 
   const changeRemoveList = (value: number) => {
@@ -86,12 +86,16 @@ export function SalesList() {
       minute: "2-digit",
     }).format(date)
   }
+  const filteredSales = allSales.filter((sale) =>
+  sale.user?.name?.toLowerCase().includes(search.toLowerCase()) ||
+  sale.id.toString().includes(search)
+)
 
   return (
     <div>
       <div className="header-actions">
         <FormSales onSaleAdded={getSales} />
-        <SearchSales/>
+        <SearchSales value={search} onChange={setSearch}/>
         <button
           className="submitButton error"
           onClick={handleDeleteSelected}
@@ -106,7 +110,7 @@ export function SalesList() {
 
       {allSales.length > 0 ? <div className={Style.SalesList}>
         {
-          allSales.map((i) => (
+          filteredSales.map((i) => (
             <div key={i.id} className={Style.cardSales}>
               <label className="checkbox-wrapper">
                 <input

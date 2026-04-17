@@ -22,11 +22,12 @@
 .conteinerListDashboard{
     overflow-y: scroll;
     width: 100%;
-    min-height: 80%;
+    min-height: 350px;
     position: relative;
 }
 .conteinerReport{
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
 }

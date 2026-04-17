@@ -1,4 +1,3 @@
-// ProductEntryReport.tsx - Atualizado
 import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import type { IProducts } from '../../types/products';
@@ -17,6 +16,7 @@ export function ProductEntryReport() {
     { week: 'Segunda Semana', entry: 0 },
     { week: 'Terceira Semana', entry: 0 },
     { week: 'Quarta Semana', entry: 0 },
+    
   ]);
   const [allProducts, setAllProducts] = useState<IProducts[]>([]);
 

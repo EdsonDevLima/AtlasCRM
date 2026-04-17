@@ -15,7 +15,7 @@ export function ProductsList() {
   const [productForEdit, setProductForEdit] = useState<IProducts | null>(null);
   const [removeList, setRemoveList] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const [search,setSearch] = useState<string>("")
   const changeRemoveList = (id: number) => {
     setRemoveList((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
@@ -69,11 +69,16 @@ export function ProductsList() {
     getProducts();
   }, [getProducts]);
 
+      const filteredCustomers = allProducts.filter((product) =>
+  product.name?.toLowerCase().includes(search.toLowerCase()) ||
+  product.id?.toString().includes(search)
+)
+
   return (
     <div>
       <div className="header-actions">
         <FormProduct />
-        <SearchProduct />
+        <SearchProduct onChange={setSearch} value={search}/>
         <button
           className="submitButton error"
           onClick={handleDeleteSelected}
@@ -86,8 +91,8 @@ export function ProductsList() {
 
       {loading && <p>Carregando...</p>}
 
-      {allProducts.length > 0 ? <div className={Styles.listProducts}>
-        {allProducts.map((i) => (
+      {filteredCustomers.length > 0 ? <div className={Styles.listProducts}>
+        {filteredCustomers.map((i) => (
           <div key={i.id} className={Styles.cardProduct}>
             <label className="checkbox-wrapper">
               <input
