@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Style from "./formSales.module.css";
 import { IoClose } from "react-icons/io5";
 import api from "../../../service/api"; 
@@ -21,7 +21,7 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
 
   const formatAddress = (id?:string)=>{
     if(id !== ""){
-   const user =  allCustomers.filter((c)=>c.id == parseInt(id))[0]
+   const user =  allCustomers.filter((c)=>c.id == parseInt(id || "0"))[0]
    const addressParserd = `Cidade :${user.adress.city || ""}\nRua: ${user.adress.street} \nCep: ${user.adress.zip || ""}\nNumero:${user.adress.number}`
    return addressParserd
     }

@@ -135,8 +135,11 @@ export function ProductsList() {
       </div> : <p className={Styles.nother}>Nenhum produto encontrado</p> }
 
       {productForEdit && (
-        <FormEditProduct
-          product={productForEdit}
+       <FormEditProduct
+          product={{
+            ...productForEdit,
+            id: String(productForEdit.id ?? "")
+          }}
           onClose={() => setProductForEdit(null)}
           onUpdate={getProducts}
         />
