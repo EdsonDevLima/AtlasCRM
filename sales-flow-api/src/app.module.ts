@@ -10,7 +10,7 @@ import { Sale } from './database/entities/sale';
 import { Adress } from './database/entities/adress';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { NotificationModule } from './notifications/notifications.service';
+import { NotificationModule } from './notifications/notifications.module'; 
 
 @Module({
   imports: [

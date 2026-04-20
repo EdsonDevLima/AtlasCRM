@@ -2,7 +2,7 @@ export interface ICreateNotificationDto{
     message:string,
     type:"sale"|"refunded"|"support"|"warn product",
     saleId?:number,
-    useId:number
+    userId:number
 }
 
 export interface IParamsSearchNotifications{
