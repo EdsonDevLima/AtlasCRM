@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IProductDto } from 'src/database/dtos/products-dtos';
 import { Product } from 'src/database/entities/product';
@@ -18,18 +18,36 @@ export class ProductsService {
     }
     async removeProduct(id: number) {
         try {
-            const product = await this.repository.findOne({ where: { id } })
-            if (product) {
-                await this.repository.remove(product)
-                return { sucess: true, message: "Produto removido" }
-            } else {
-                return { sucess: false, message: "Produto não encontrado" }
+            const product = await this.repository.findOne({ where: { id } });
+
+            if (!product) {
+            throw new NotFoundException("Produto não encontrado");
             }
 
-        } catch (error) {
-            throw Error(error)
+            await this.repository.remove(product);
+
+            return { sucess: true, message: "Produto removido" };
+
+        } catch (error: unknown) {
+
+            let message = "";
+
+            if (error instanceof Error) {
+                message = error.message;
+            }
+
+            if (
+                message.includes("foreign key constraint fails") ||
+                message.includes("Cannot delete or update a parent row")
+            ) {
+                throw new BadRequestException(
+                "Não é possível excluir o produto, pois ele está vinculado a outros registros."
+                );
+            }
+
+            throw error;
+            }
         }
-    }
     async updateProduct(product: IProductDto) {
         try {
             const productExist = await this.repository.findOne({ where: { id: product.id } })

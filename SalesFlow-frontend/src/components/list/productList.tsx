@@ -9,6 +9,7 @@ import Styles from "./productList.module.css";
 import { SearchProduct } from "../search/searchProducts";
 import { FormEditProduct } from "../forms/edit/formEditproduct";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export function ProductsList() {
   const [allProducts, setAllProducts] = useState<IProducts[]>([]);
@@ -58,9 +59,15 @@ export function ProductsList() {
 
       setRemoveList([]);
       toast.success("Produto(s) removido(s) com sucesso!");
-    } catch (error) {
-      toast.error(`Erro ao remover produtos: ${error}`);
-    } finally {
+    }catch (error: unknown) {
+      let message = "Erro ao remover produto";
+
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.message || message;
+      }
+
+      toast.error(message);
+} finally {
       setLoading(false);
     }
   };

@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IUpdateUser } from 'src/database/dtos/user-dtos';
 import { Adress } from 'src/database/entities/adress';
 import { User } from 'src/database/entities/user';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -17,19 +17,40 @@ export class UserService {
 
 
     }
-    async removeUser(id: number) {
-        try {
-            const User = await this.repository.findOne({ where: { id } })
-            if (User) {
-                await this.repository.remove(User)
-                return { sucess: true, message: "Cliente removido" }
-            } else {
-                return { sucess: false, message: "Cliente não encontrado" }
-            }
 
-        } catch (error) {
-            throw Error(error)
+    async removeUser(id: number) {
+    try {
+        const user = await this.repository.findOne({ where: { id } });
+
+        if (!user) {
+        throw new NotFoundException("Usuário não encontrado");
         }
+
+        await this.repository.remove(user);
+
+        return { success: true, message: "Cliente removido" };
+
+    } catch (error: unknown) {
+
+        if (error instanceof QueryFailedError) {
+        const err = error as QueryFailedError & {
+            code?: string;
+            message: string;
+        };
+
+        if (
+            err.code === 'ER_ROW_IS_REFERENCED_2' ||
+            err.code === 'ER_ROW_IS_REFERENCED' ||
+            err.message.includes('foreign key constraint fails')
+        ) {
+            throw new BadRequestException(
+            "Não é possível excluir o usuário, pois ele possui registros vinculados (ex: pedidos)."
+            );
+        }
+        }
+
+        throw error;
+    }
     }
     async updateUser(id: number, data: IUpdateUser) {
   try {

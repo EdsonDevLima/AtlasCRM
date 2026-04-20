@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, CreateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, CreateDateColumn, JoinTable } from "typeorm";
 import { Sale } from "./sale"; 
 
 @Entity()
@@ -6,25 +6,35 @@ export class Product {
 
     @PrimaryGeneratedColumn()
     id: number
+
     @Column()
     name: string
+
     @Column()
     price: string
+
     @Column()
     description: string
+
     @Column()
-    category:string
+    category: string
+
     @Column()
-    amount:number
+    amount: number
+
     @Column()
-    status:string
+    status: string
+
     @Column()
-    isPromotion:boolean
+    isPromotion: boolean
+
     @ManyToMany(() => Sale, sale => sale.products)
+    @JoinTable()
     sales: Sale[]
+
     @CreateDateColumn()
     createdAt: Date;
+
     @Column({ type: 'varchar', length: 255, nullable: true })
-    image?:string | undefined
-    
+    image?: string
 }

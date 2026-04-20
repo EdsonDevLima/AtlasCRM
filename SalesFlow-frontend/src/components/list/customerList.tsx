@@ -8,6 +8,7 @@ import { FormCustomer } from "../forms/register/formCustomer";
 import { CustomerFormEdit } from "../forms/edit/customersEdit";
 import { SearchCustomers } from "../search/searchCustomers";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export function CustomersList() {
   const [allCustomers, setAllCustomers] = useState<ICustomer[]>([]);
@@ -57,9 +58,15 @@ export function CustomersList() {
       );
 
       setRemoveList([]);
-    } catch (error) {
-      toast.info(`${error}`);
-    } finally {
+    }catch (error: unknown) {
+      let message = "Erro ao remover cliente";
+
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.message || message;
+      }
+
+      toast.error(message);
+} finally {
       setLoading(false);
     }
   };

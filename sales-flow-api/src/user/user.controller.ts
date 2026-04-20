@@ -49,20 +49,13 @@ export class UserController {
     }
     @Delete(":id")
     async remove(@Param("id") id: number) {
-        try {
+    const userExist = await this.service.getUser(null, id);
 
-            const UserExist = await this.service.getUser(null, id)
-            if (UserExist) {
-                await this.service.removeUser(id)
-                return { message: "Usuario removido" }
-            } else {
-                throw new HttpException("Usuario não encontrado", HttpStatus.NOT_FOUND)
-            }
+    if (!userExist.sucess) {
+        throw new HttpException("Usuario não encontrado", HttpStatus.NOT_FOUND);
+    }
 
-        } catch (error) {
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-
+    return this.service.removeUser(id);
     }
     @Get('customers')
     async getAllCustomers() {

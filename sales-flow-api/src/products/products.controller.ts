@@ -37,22 +37,14 @@ export class ProductsController {
 
     }
     @Delete(":id")
-    @UseInterceptors(FileInterceptor(''))
-    async remove(@Param() Param:{id:number}) {
-        try {
-            if (Param.id) {
-                const productExist = await this.service.getProduct(Param.id)
-                if (productExist) {
-                    await this.service.removeProduct(Param.id)
-                    return { message: "Produto removido" }
-                } else {
-                    throw new HttpException("Produto não encontrado", HttpStatus.NOT_FOUND)
-                }
-            }
-        } catch (error) {
-            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+    async remove(@Param("id") id: number) {
+    const product = await this.service.getProduct(id);
 
+    if (!product) {
+        throw new HttpException("Produto não encontrado", HttpStatus.NOT_FOUND);
+    }
+
+    return this.service.removeProduct(id);
     }
     @Get("all")
     async getAll() {

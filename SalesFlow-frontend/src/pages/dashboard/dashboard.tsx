@@ -42,12 +42,6 @@ export function Dashboard(){
                 <RecentSales filters={salesFilters} />
             </div>
         </div>
-        <div className={Styles.conteinerNotification}>
-            <h2>Produtos mais acessados.</h2>
-            <div className={Styles.conteinerListDashboard}>
-                <RecentSales filters={salesFilters} />
-            </div>
-        </div>
         <div className={Styles.conteinerReport}>
         <ProductEntryReport/>
         <ProductExitReport/>
