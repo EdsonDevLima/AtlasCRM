@@ -1,12 +1,12 @@
 import { DataSourceOptions } from "typeorm";
+import { Product } from "../entities/product";
+import { Sale } from "../entities/sale";
+import { User } from "../entities/user";
+import { Notification } from "../entities/notification";
 
 export const conn: DataSourceOptions = {
     type: "mysql",
-    database: process.env.DATABASE_NAME || "",
-    host: process.env.DATABASE_HOST || "",
-    port: parseInt(process.env.DATABASE_PORT || "3306"),
-    username: process.env.DATABASE_USERNAME || "root",
-    password: process.env.DATABASE_PASSWORD,
+    url:process.env.DATABASE_URL,
     synchronize: true,
-    entities: []
+    entities: [Product,Sale,User,Notification]
 }
