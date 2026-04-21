@@ -7,6 +7,7 @@ export interface IProductDto {
     category:string
     isPromotion:boolean
     status:string
+    image?: string
 }
 export interface ICreateProductUpload {
   name: string;

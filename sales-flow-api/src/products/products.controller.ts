@@ -71,11 +71,17 @@ export class ProductsController {
         }
     }
     @Put('update')
-    async updateProduc(@Body() Body:IProductDto){
+    @UseInterceptors(FileInterceptor('image', multerConfig))
+    async updateProduc(
+        @Body() body: IProductDto,
+        @UploadedFile() file?: Express.Multer.File,
+    ){
 
         try{
-
-            const response = await this.service.updateProduct(Body)
+            const response = await this.service.updateProduct({
+                ...body,
+                image: file?.filename,
+            })
             return response
 
         }catch(error){
