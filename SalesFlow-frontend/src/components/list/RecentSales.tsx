@@ -26,9 +26,9 @@ export function RecentSales({ filters }: RecentSalesProps) {
       const response = await api.get("sales/all")
       let data = (response.data as SalesResult[]) || []
       
-      // Aplica filtros se fornecidos
+
       if (filters) {
-        // Filtro de período
+
         if (filters.period !== "all") {
           const now = new Date()
           const filterDate = new Date()
@@ -47,12 +47,11 @@ export function RecentSales({ filters }: RecentSalesProps) {
           })
         }
         
-        // Filtro de status
+
         if (filters.status !== "all") {
           data = data.filter((sale) => sale.status === filters.status)
         }
         
-        // Filtro de valor mínimo
         if (filters.minValue !== undefined) {
           data = data.filter((sale) => {
             const total = typeof sale.total === "string" ? parseFloat(sale.total) : sale.total
@@ -60,7 +59,6 @@ export function RecentSales({ filters }: RecentSalesProps) {
           })
         }
         
-        // Filtro de valor máximo
         if (filters.maxValue !== undefined) {
           data = data.filter((sale) => {
             const total = typeof sale.total === "string" ? parseFloat(sale.total) : sale.total
@@ -69,7 +67,6 @@ export function RecentSales({ filters }: RecentSalesProps) {
         }
       }
       
-      // Ordena por data e pega os 5 mais recentes
       const sortedData = data
         .sort((a, b) => {
           const dateA = new Date(a.created_at).getTime()

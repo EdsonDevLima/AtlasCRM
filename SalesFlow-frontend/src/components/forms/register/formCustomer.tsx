@@ -93,7 +93,7 @@ export function FormCustomer({ onCustomerCreated }: FormCustomerProps) {
     e.preventDefault();
     setLoading(true);
 
-    // ✔ validação de senha
+
     if (password !== confirmPassword) {
       toast.error("As senhas não coincidem");
       setLoading(false);

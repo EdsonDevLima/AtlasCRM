@@ -17,7 +17,7 @@ export function RecentCustomers() {
       const response = await api.get("user/customers")
       const data = (response.data.items as ICustomer[]) || []
       
-      // Pega apenas os 5 últimos clientes cadastrados
+
       const sortedData = data
         .sort((a, b) => {
           const dateA = new Date(a.createdAt || 0).getTime()
