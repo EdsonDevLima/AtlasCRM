@@ -1,6 +1,6 @@
 import { IoIosNotifications } from "react-icons/io";
 import api from "../../service/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { INotification } from "../../types/notifications";
 import Style from "./notificationsDropdown.module.css";
 
@@ -8,6 +8,7 @@ export function NotificationsDropdown() {
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [pendingNotifications, setPendingNotifications] = useState(false);
   const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const getNotifications = async () => {
     try {
@@ -30,8 +31,25 @@ export function NotificationsDropdown() {
     getNotifications();
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={Style.container}>
+    <div ref={containerRef} className={Style.container}>
       <div
         className={Style.iconWrapper}
         onClick={() => setOpen(!open)}

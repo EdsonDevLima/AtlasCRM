@@ -1,15 +1,34 @@
 import { CgProfile } from "react-icons/cg";
 import Style from "./menu-profile-user.module.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ContextUserApp } from "../../context/contextApp";
 
 export function MenuProfileUser() {
   const { logout } = useContext(ContextUserApp);
   const [displayAction, setDisplayAction] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setDisplayAction(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className={Style.menuProfileUserConteiner}>
+    <div ref={containerRef} className={Style.menuProfileUserConteiner}>
       <button 
+        type="button"
         className={Style.buttonProfileConteiner} 
         onClick={() => setDisplayAction(!displayAction)}
       >
