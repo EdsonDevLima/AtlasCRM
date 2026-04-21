@@ -16,8 +16,8 @@ export class Sale {
     @ManyToMany(() => Product, { cascade: true })
     @JoinTable()
     products: Product[]
-    @Column()
-    trackingCode:string
+    @Column({nullable:true})
+    trackingCode?:string
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     total: number
     @Column({
