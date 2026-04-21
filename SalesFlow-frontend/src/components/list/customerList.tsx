@@ -60,13 +60,11 @@ export function CustomersList() {
 
       setRemoveList([]);
     }catch (error: unknown) {
-      let message = "Erro ao remover cliente";
-
-      if (axios.isAxiosError(error)) {
-        message = error.response?.data?.message || message;
-      }
-
-      toast.error(message);
+  if (axios.isAxiosError(error)) {
+    toast.error(error.response?.data?.message || error.message);
+  } else {
+    toast.error("Erro inesperado");
+  }
 } finally {
       setLoading(false);
     }

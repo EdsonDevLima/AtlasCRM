@@ -4,6 +4,7 @@ import Style from "./salesFormEdit.module.css"
 import api from "../../../service/api"
 import { toast } from "react-toastify"
 import { ButtonLoading } from "../../load/ButtonLoading"
+import axios from "axios"
 
 export function SalesFormEdit({
   sale,
@@ -30,12 +31,24 @@ export function SalesFormEdit({
 
   if (!displayModal) return null
 
+  const calculatedTotal = sale.products.reduce((sum, product) => {
+    const parsedPrice =
+      typeof product.price === "string"
+        ? Number.parseFloat(product.price)
+        : Number(product.price);
+
+    return sum + (Number.isNaN(parsedPrice) ? 0 : parsedPrice);
+  }, 0);
+
+  const displayTotal = Number(sale.total) > 0 ? Number(sale.total) : calculatedTotal;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
       await api.put(`/sales/update`, {
+        id: sale.id,
         status,
         trackingCode
       })
@@ -43,9 +56,13 @@ export function SalesFormEdit({
       toast.success("Venda atualizada com sucesso!")
       await onUpdated?.()
       onClose()
-    } catch (error) {
-      toast.error(`Erro ao atualizar venda: ${error}`)
-    } finally {
+    }catch (error: unknown) {
+  if (axios.isAxiosError(error)) {
+    toast.error(error.response?.data?.message || error.message);
+  } else {
+    toast.error("Erro inesperado");
+  }
+} finally {
       setLoading(false)
     }
   }
@@ -100,7 +117,7 @@ export function SalesFormEdit({
           <input
             type="text"
             disabled
-            value={Number(sale.total).toLocaleString("pt-BR", {
+            value={displayTotal.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}

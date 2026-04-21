@@ -12,6 +12,14 @@ interface FormSalesProps {
 }
 
 export function FormSales({ onSaleAdded }: FormSalesProps) {
+  type SaleProductItem = {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
+    total: number;
+  };
+
   const [allCustomers, setAllCustomers] = useState<ICustomer[]>([]);
   const [allProducts, setAllProducts] = useState<IProducts[]>([]);
   const [displayForm, setDisplayForm] = useState(false);
@@ -29,9 +37,7 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
     }
       
   }
-  const [listProducts, setListProducts] = useState<
-    { name: string; price: number; id:number; }[]
-  >([]);
+  const [listProducts, setListProducts] = useState<SaleProductItem[]>([]);
 
   const [total, setTotal] = useState(0);
 
@@ -56,26 +62,28 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
 
 
   useEffect(() => {
-    if (!selectedProduct || productQty <= 0) {
-      setTotal(0);
-      return;
-    }
-
-    const product = allProducts.find((p) => p.name === selectedProduct);
-
-    if (product) {
-      setTotal(product.price * productQty);
-    }
-  }, [selectedProduct, productQty, allProducts]);
+    const nextTotal = listProducts.reduce((sum, item) => sum + item.total, 0);
+    setTotal(nextTotal);
+  }, [listProducts]);
 
   const handleForm = () => setDisplayForm(!displayForm);
 
   const addProductToList = () => {
-
+    if (!selectedProduct || productQty <= 0) return;
     const product = allProducts.find((p) => p.name === selectedProduct);
     if (!product) return;
 
-    setListProducts((prev) => [...prev, { name: product.name, price: product.price, id:product.id || 0 }]);
+    setListProducts((prev) => [
+      ...prev,
+      {
+        name: product.name,
+        price: Number(product.price),
+        id: product.id || 0,
+        quantity: productQty,
+        total: Number(product.price) * productQty,
+      },
+    ]);
+    setSelectedProduct("");
     setProductQty(1);
   };
 
@@ -183,7 +191,7 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
                 {listProducts.map((item, index) => (
                   <div key={index} className={Style.listItem}>
                     <span>
-                      {item.name} — R$ {item.price && `${item.price},00`}
+                      {item.name} x{item.quantity} - R$ {item.total.toFixed(2)}
                     </span>
 
                     <button
@@ -205,7 +213,14 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
 
             <label>
               Total:
-              <input type="text" disabled value={`R$ ${total.toFixed(2)}`} />
+              <input
+                type="text"
+                disabled
+                value={total.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              />
             </label>
 
             <ButtonLoading loading={loading} text="Cadastrar" className={Style.buttonRegister} />

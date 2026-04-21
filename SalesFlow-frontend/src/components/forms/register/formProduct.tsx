@@ -4,6 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { apiMultiPart } from "../../../service/api";
 import { toast } from "react-toastify";
 import { ButtonLoading } from "../../load/ButtonLoading";
+import axios from "axios";
 
 interface FormProductProps {
   onProductCreated?: () => Promise<void> | void;
@@ -137,10 +138,13 @@ export function FormProduct({ onProductCreated }: FormProductProps) {
     setDisplayForm(false)
     toast.success("Produto criados com sucesso")
     await onProductCreated?.()
-  } catch (error) {
-    console.error(error);
-    toast.error("Nao foi possivel cadastrar o produto.");
-  } finally {
+  }catch (error: unknown) {
+  if (axios.isAxiosError(error)) {
+    toast.error(error.response?.data?.message || error.message);
+  } else {
+    toast.error("Erro inesperado");
+  }
+} finally {
     setLoading(false);
   }
 };

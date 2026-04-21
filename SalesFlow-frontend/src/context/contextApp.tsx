@@ -4,6 +4,7 @@ import api from "../service/api";
 import { toast } from "react-toastify";
 import type { ContextUserAppType } from "../types/context";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const ContextUserApp = createContext({} as ContextUserAppType);
 
@@ -26,9 +27,13 @@ export function ContextUserAppProvider({ children }: { children: ReactNode }) {
       } else {
         toast.info(response.data.message);
       }
-    } catch (error) {
-      toast.error("Erro no sistema: " + error);
-    }
+    } catch (error: unknown) {
+  if (axios.isAxiosError(error)) {
+    toast.error(error.response?.data?.message || error.message);
+  } else {
+    toast.error("Erro inesperado");
+  }
+}
   };
 
   const register = async (name: string, email: string, password: string,confirmPassword:string) => {
@@ -74,6 +79,7 @@ export function ContextUserAppProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       localStorage.removeItem("token");
       setUser(null);
+      console.log(error)
       return false;
     }
   }
