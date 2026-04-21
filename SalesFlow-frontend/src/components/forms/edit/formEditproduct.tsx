@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Style from "./formEditProduct.module.css"
 import { IoClose } from "react-icons/io5";
-import api from "../../../service/api"; 
+import { apiMultiPart } from "../../../service/api"; 
 import { ButtonLoading } from "../../load/ButtonLoading";
+import { toast } from "react-toastify";
 
 interface Product {
   id: string;
@@ -23,6 +24,19 @@ interface FormEditProductProps {
 }
 
 export function FormEditProduct({ product, onClose, onUpdate }: FormEditProductProps) {
+  const acceptedImageTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/bmp",
+    "image/svg+xml",
+    "image/tiff",
+    "image/x-icon",
+    "image/avif",
+    "image/heic",
+    "image/heif"
+  ];
+
   const [price, setPrice] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -30,6 +44,7 @@ export function FormEditProduct({ product, onClose, onUpdate }: FormEditProductP
   const [category, setCategory] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [isOnPromotion, setIsOnPromotion] = useState<boolean>(false);
+  const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
 useEffect(() => {
@@ -39,6 +54,7 @@ useEffect(() => {
   setCategory(product.category || "Eletronicos");
   setAmount(product.amount);
   setIsOnPromotion(product.isOnPromotion);
+  setImage(null);
 
 
   const priceNumber = Number(product.price) || 0;
@@ -75,6 +91,35 @@ useEffect(() => {
     );
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+
+    if (!selectedFile) {
+      setImage(null);
+      return;
+    }
+
+    const fileExtension = selectedFile.name.split(".").pop()?.toLowerCase();
+    const isWebp =
+      selectedFile.type === "image/webp" || fileExtension === "webp";
+
+    if (isWebp) {
+      toast.error("Imagens em formato WEBP nao sao permitidas.");
+      e.target.value = "";
+      setImage(null);
+      return;
+    }
+
+    if (!acceptedImageTypes.includes(selectedFile.type)) {
+      toast.error("Selecione uma imagem valida.");
+      e.target.value = "";
+      setImage(null);
+      return;
+    }
+
+    setImage(selectedFile);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -82,6 +127,7 @@ useEffect(() => {
     const priceValue = getPriceValue();
 
     const formData = new FormData();
+    formData.append("id", product.id);
     formData.append("name", name);
     formData.append("price", String(priceValue));
     formData.append("description", description);
@@ -89,16 +135,21 @@ useEffect(() => {
     formData.append("status", status);
     formData.append("amount", String(amount));
     formData.append("isOnPromotion", String(isOnPromotion));
+    if (image) {
+      formData.append("image", image);
+    }
 
 
     try {
-      await api.put(`/products/update`, formData);
+      await apiMultiPart.put(`/products/update`, formData);
+      toast.success("Produto atualizado com sucesso!");
       if (onUpdate) {
         onUpdate();
       }
       onClose();
     } catch (error) {
       console.error(error);
+      toast.error("Nao foi possivel atualizar o produto.");
     } finally {
       setLoading(false);
     }
@@ -180,7 +231,46 @@ useEffect(() => {
               onChange={() => setIsOnPromotion(!isOnPromotion)} 
               type="checkbox" 
             />
-          </label>         
+          </label>
+
+          <div className={Style.currentImageContainer}>
+            {product.image && !image && (
+              <>
+                <p>Imagem atual:</p>
+                <img
+                  src={`${import.meta.env.VITE_API_URL}/products/image/${product.image}`}
+                  alt={product.name}
+                  className={Style.previewImage}
+                />
+              </>
+            )}
+
+            {image && (
+              <>
+                <p>Nova imagem:</p>
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="Nova imagem do produto"
+                  className={Style.previewImage}
+                />
+              </>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="editImageUpload" className={Style.customFileButton}>
+              {image ? "Trocar imagem selecionada" : "Enviar nova imagem"}
+            </label>
+
+            <input
+              id="editImageUpload"
+              type="file"
+              accept=".jpg,.jpeg,.png,.gif,.bmp,.svg,.tif,.tiff,.ico,.avif,.heic,.heif"
+              className={Style.fileInput}
+              onChange={handleImageChange}
+            />
+          </div>
+
         <ButtonLoading loading={loading} text="Salvar alterações" className={Style.buttonRegister} />
         </div>
       </form>
