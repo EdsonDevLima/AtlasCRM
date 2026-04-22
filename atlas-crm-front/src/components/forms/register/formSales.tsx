@@ -5,6 +5,8 @@ import api from "../../../service/api";
 import type { ICustomer } from "../../../types/customers";
 import type { IProducts } from "../../../types/products"; 
 import { ButtonLoading } from "../../load/ButtonLoading";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 
 interface FormSalesProps {
@@ -93,6 +95,11 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!selectedCustomer || listProducts.length === 0) {
+      return;
+    }
+
     setLoading(true);
     
     try {
@@ -111,10 +118,19 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
       setProductQty(1);
       setTotal(0);
       setDisplayForm(false);
+      toast.success("Pedido criado com sucesso.");
 
       await onSaleAdded();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erro ao cadastrar venda:", error);
+
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || error.message);
+      } else if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Erro inesperado ao cadastrar pedido.");
+      }
     } finally {
       setLoading(false);
     }
@@ -140,6 +156,7 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
               <select
                 value={selectedCustomer}
                 onChange={(e) => {setSelectedCustomer(e.target.value)}}
+                required
               >
                 <option disabled value="">
                   Selecione o cliente
@@ -183,6 +200,10 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
               Adicionar produto
             </button>
 
+            {listProducts.length === 0 && (
+              <p>Adicione pelo menos um produto para cadastrar o pedido.</p>
+            )}
+
             <label>
               Lista de produtos:
               <div className={Style.listContainer}>
@@ -223,7 +244,12 @@ export function FormSales({ onSaleAdded }: FormSalesProps) {
               />
             </label>
 
-            <ButtonLoading loading={loading} text="Cadastrar" className={Style.buttonRegister} />
+            <ButtonLoading
+              loading={loading}
+              text="Cadastrar"
+              className={Style.buttonRegister}
+              disabled={!selectedCustomer || listProducts.length === 0}
+            />
           </form>
         </div>
       )}

@@ -13,6 +13,13 @@
     overflow-y: auto;
 }
 
+.modalFormProduct,
+.modalFormProduct *,
+.modalFormProduct *::before,
+.modalFormProduct *::after{
+    box-sizing: border-box;
+}
+
 .conteinerFormProducts{
     background-color: #2d3e50;
     border-radius: 8px;
@@ -24,6 +31,7 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    min-width: 0;
 }
 
 .modalFormProduct form{
@@ -41,6 +49,7 @@
     justify-content: space-between;
     gap: 20px;
     padding: 0;
+    min-width: 0;
 }
 
 .modalFormProduct form h2{
@@ -183,6 +192,7 @@
     justify-content: flex-start;
     gap: 12px;
     padding: 12px 0;
+    min-width: 0;
 }
 
 .labelCheckbox span{
@@ -270,6 +280,15 @@
     border: 2px solid #3a4a5f;
 }
 
+@media (max-width: 900px) {
+    .modalFormProduct form label,
+    .priceProduct,
+    .labelSelect,
+    .labelCheckbox{
+        width: 100% !important;
+    }
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .modalFormProduct{
@@ -305,7 +324,7 @@
     }
 
     .closeFormProduct{
-        top: 80px;
+        top: 12px;
         right: 12px;
         width: 32px;
         height: 32px;

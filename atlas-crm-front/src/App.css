@@ -91,7 +91,6 @@ border: none;
   position: relative;
   z-index: 1;
   min-width: 0;
-  justify-content: center;
 }
 
 .card-list {

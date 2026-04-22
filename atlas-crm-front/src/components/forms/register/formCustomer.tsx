@@ -75,8 +75,12 @@ export function FormCustomer({ onCustomerCreated }: FormCustomerProps) {
     setAddresses(addresses.filter((_, i) => i !== index));
   };
 
-  const handleForm = () => {
-    setDisplayForm((prev) => !prev);
+  const openForm = () => {
+    setDisplayForm(true);
+  };
+
+  const closeForm = () => {
+    setDisplayForm(false);
   };
 
   const isAddressFilled = (address: IAddress) => {
@@ -144,13 +148,19 @@ export function FormCustomer({ onCustomerCreated }: FormCustomerProps) {
 
   return (
     <div className={Style.conteinerForm}>
-      <button type="button" className="submitButton success" onClick={handleForm}>
+      <button type="button" className="submitButton success" onClick={openForm}>
         Cadastrar
       </button>
 
       {displayForm && (
-        <div onClick={handleForm} className={Style.modalFormcustomer}>
-          <span className={Style.closeFormcustomer} onClick={handleForm}>
+        <div onClick={closeForm} className={Style.modalFormcustomer}>
+          <span
+            className={Style.closeFormcustomer}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeForm();
+            }}
+          >
             <IoClose />
           </span>
 

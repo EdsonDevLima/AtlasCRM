@@ -10,4 +10,5 @@ export type PropsButtonLoading = {
   loading: boolean;
   text: string;
   className?: string;
+  disabled?: boolean;
 };
