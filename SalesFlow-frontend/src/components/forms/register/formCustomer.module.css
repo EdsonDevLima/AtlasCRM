@@ -176,31 +176,40 @@
 }
 
 @media (max-width: 768px) {
+    .conteinerEmail{
+        min-height: auto;
+    }
+
     .modalFormcustomer{
         top: 0;
         height: 100%;
         padding: 8px;
         align-items: flex-start;
+        z-index: 1002;
+        padding-top: 80px;
     }
     
     .modalFormcustomer form{
         flex-direction: column !important;
+        width: 100%;
         max-width: 100%;
         max-height: calc(100vh - 16px);
         overflow-y: auto;
         overscroll-behavior: contain;
         border-radius: 14px;
+        position: relative;
+        z-index: 1003;
     }
     
     .modalFormcustomer form > div{
-        padding: 18px 18px 18px 18px;
+        padding: 18px;
         min-width: 100% !important;
+        gap: 16px;
     }
     
     .modalFormcustomer form > div:first-child{
         border-right: none;
         border-bottom: 1px solid #3a4a5f;
-        padding-top: 52px;
     }
     
     .modalFormcustomer form h2{
@@ -208,21 +217,22 @@
     }
 
     .closeFormcustomer{
-        top: 10px;
-        right: 10px;
+        top: 80px;
+        right: 12px;
         width: 32px;
         height: 32px;
         font-size: 20px;
+        z-index: 1005;
     }
 }
 
 @media (max-width: 480px) {
-    .modalFormcustomer form > div{
-        padding: 16px 14px;
-    }
-    
     .modalFormcustomer form{
         gap: 0;
+    }
+
+    .modalFormcustomer form h2{
+        font-size: 20px;
     }
     
     .addressBox{

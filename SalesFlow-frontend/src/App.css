@@ -245,8 +245,8 @@ border: none;
   padding: 12px 16px;
   position: fixed;
   left: 0;
-  top: 80px;
-  z-index: 997;
+  top: 70px;
+  z-index: 995;
   background-color:#EFECE3;
 }
 .submitButton{

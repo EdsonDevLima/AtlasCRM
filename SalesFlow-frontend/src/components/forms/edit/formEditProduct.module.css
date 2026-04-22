@@ -229,7 +229,7 @@
 .buttonRegister {
     width: 100%;
     padding: 14px;
-    background-color: green;
+    background-color: #27ae60;
     color: white !important;
     border: none;
     border-radius: 6px;
@@ -243,7 +243,7 @@
 }
 
 .buttonRegister:hover {
-    background-color: #2980b9;
+    background-color: #229954;
 }
 
 .currentImageContainer {
@@ -276,19 +276,28 @@
         top: 0;
         height: 100%;
         padding: 8px;
+        padding-top: 80px;
         align-items: flex-start;
+        z-index: 1002;
     }
     
     .conteinerFormProducts{
-        padding: 56px 20px 20px 20px;
+        width: 100%;
+        padding: 56px 18px 18px 18px;
         max-height: calc(100vh - 16px);
         border-radius: 14px;
         overscroll-behavior: contain;
+        position: relative;
+        z-index: 1003;
     }
     
     .modalFormProduct form{
-        gap: 15px;
+        width: 100%;
+        gap: 16px;
         max-height: calc(100vh - 16px);
+        margin-top: 0 !important;
+        position: relative;
+        z-index: 1003;
     }
     
     .modalFormProduct form h2{
@@ -296,11 +305,12 @@
     }
 
     .closeFormProduct{
-        top: 10px;
-        right: 10px;
+        top: 80px;
+        right: 12px;
         width: 32px;
         height: 32px;
         font-size: 20px;
+        z-index: 1005;
     }
     
     .modalFormProduct form label,
@@ -315,9 +325,13 @@
     .conteinerFormProducts{
         padding: 52px 14px 14px 14px;
     }
-    
+
     .modalFormProduct form{
         gap: 12px;
+    }
+
+    .modalFormProduct form h2{
+        font-size: 20px;
     }
 }
 

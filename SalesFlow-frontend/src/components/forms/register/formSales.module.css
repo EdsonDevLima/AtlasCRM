@@ -235,6 +235,65 @@
     background-color: #229954;
 }
 
+@media (max-width: 768px) {
+    .modalFormSales{
+        top: 0;
+        height: 100%;
+        padding: 8px;
+        padding-top: 80px;
+        align-items: flex-start;
+        z-index: 1002;
+    }
+
+    .modalFormSales form{
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100vh - 16px);
+        padding: 56px 18px 18px 18px;
+        gap: 16px;
+        border-radius: 14px;
+        overscroll-behavior: contain;
+        z-index: 1003;
+    }
+
+    .modalFormSales form h2{
+        font-size: 22px;
+    }
+
+    .closeFormSales{
+        top: 80px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        z-index: 1005;
+    }
+
+    .listItem{
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .removeButton{
+        width: 100%;
+    }
+
+    .listContainer{
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modalFormSales form{
+        padding: 52px 14px 14px 14px;
+        gap: 12px;
+    }
+
+    .modalFormSales form h2{
+        font-size: 20px;
+    }
+}
+
 /* Scrollbar customizada para a lista de produtos */
 .listContainer::-webkit-scrollbar {
     width: 8px;
@@ -271,53 +330,4 @@
 
 .modalFormSales form::-webkit-scrollbar-thumb:hover {
     background: #4a5a6f;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .modalFormSales{
-        top: 0;
-        height: 100%;
-        padding: 8px;
-        align-items: flex-start;
-    }
-    
-    .modalFormSales form{
-        max-width: 100%;
-        max-height: calc(100vh - 16px);
-        padding: 56px 20px 20px 20px;
-        border-radius: 14px;
-        overscroll-behavior: contain;
-    }
-    
-    .modalFormSales form h2{
-        font-size: 22px;
-    }
-
-    .closeFormSales{
-        top: 10px;
-        right: 10px;
-        width: 32px;
-        height: 32px;
-        font-size: 20px;
-    }
-    
-    .listContainer{
-        max-height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .modalFormSales form{
-        padding: 52px 14px 14px 14px;
-    }
-    
-    .listItem{
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .removeButton{
-        width: 100%;
-    }
 }
