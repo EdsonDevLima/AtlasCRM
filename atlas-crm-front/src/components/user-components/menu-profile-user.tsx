@@ -36,8 +36,6 @@ export function MenuProfileUser() {
         
         {displayAction && (
           <ul className={Style.profileActions}>
-            <li>Trocar senha</li>
-            <li>Configurações</li>
             <li onClick={logout} style={{ color: '#ef4444' }}>Sair</li>
           </ul>
         )}

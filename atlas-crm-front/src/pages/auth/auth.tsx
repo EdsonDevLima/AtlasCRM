@@ -45,65 +45,99 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   return (
     <section className={Style.AuthSection}>
       <HeaderAuthenticate/>
-      <form onSubmit={handleSubmit}>
-        <h2>{isLogin ? "Entrar" : "Cadastrar-se"}</h2>
+      <div className={Style.authContent}>
+        <div className={Style.authHero}>
+          <span className={Style.badge}>Atlas CRM</span>
+          <h1>Organize clientes, pedidos e produtos em um fluxo mais claro.</h1>
+          <p>
+            Acesse sua conta para acompanhar vendas, atualizar cadastros e manter o
+            time produtivo em qualquer tela.
+          </p>
+          <div className={Style.heroHighlights}>
+            <div>
+              <strong>Desktop</strong>
+              <span>Painel mais confortável para gestão diária.</span>
+            </div>
+            <div>
+              <strong>Mobile</strong>
+              <span>Login rápido e leitura mais limpa em telas menores.</span>
+            </div>
+          </div>
+        </div>
 
-        {!isLogin && (
+        <form onSubmit={handleSubmit} className={Style.authForm}>
+          <div className={Style.formHeader}>
+            <span>{isLogin ? "Bem-vindo de volta" : "Crie sua conta"}</span>
+            <h2>{isLogin ? "Entrar" : "Cadastrar-se"}</h2>
+            <p>
+              {isLogin
+                ? "Use seu email e senha para acessar o workspace."
+                : "Preencha os dados abaixo para começar a usar a plataforma."}
+            </p>
+          </div>
+
+          {!isLogin && (
+            <label>
+              Nome:
+              <input 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)}
+                required={!isLogin}
+                placeholder="Seu nome completo"
+              />
+            </label>
+          )}
+
           <label>
-            Nome:
+            Email:
             <input 
-              type="text" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)}
-              required={!isLogin}
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="voce@empresa.com"
             />
           </label>
-        )}
 
-        <label>
-          Email:
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-
-        <label>
-          Senha:
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-
-        {!isLogin && (
           <label>
-            Confirmação de senha:
+            Senha:
             <input 
               type="password" 
-              value={confirmPassword} 
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required={!isLogin}
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Digite sua senha"
             />
           </label>
-        )}
 
-        <span 
-          onClick={() => setIsLogin(!isLogin)} 
-          className={Style.changeModeButton}
-        >
-          {isLogin ? "Ainda não possuo conta" : "Já possuo conta"}
-        </span>
+          {!isLogin && (
+            <label>
+              Confirmação de senha:
+              <input 
+                type="password" 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required={!isLogin}
+                placeholder="Repita a senha"
+              />
+            </label>
+          )}
 
-        <ButtonLoading 
-        loading={loading} 
-        text={isLogin ? "Login" : "Cadastrar-se"} 
-        />
-      </form>
+          <button
+            type="button"
+            onClick={() => setIsLogin(!isLogin)}
+            className={Style.changeModeButton}
+          >
+            {isLogin ? "Ainda não possuo conta" : "Já possuo conta"}
+          </button>
+
+          <ButtonLoading 
+            loading={loading} 
+            text={isLogin ? "Login" : "Cadastrar-se"} 
+          />
+        </form>
+      </div>
     </section>
   )
 }

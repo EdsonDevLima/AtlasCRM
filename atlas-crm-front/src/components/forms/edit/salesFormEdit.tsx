@@ -5,6 +5,7 @@ import api from "../../../service/api"
 import { toast } from "react-toastify"
 import { ButtonLoading } from "../../load/ButtonLoading"
 import axios from "axios"
+import { IoClose } from "react-icons/io5"
 
 export function SalesFormEdit({
   sale,
@@ -72,7 +73,10 @@ export function SalesFormEdit({
       className={Style.FormEditModal}
       onClick={onClose}
     >
-      <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
+      <span className={Style.closeFormSales} onClick={onClose}>
+        <IoClose />
+      </span>
+      <form className={Style.forEditSales} onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
         <h3>Editar venda</h3>
 
 
@@ -103,14 +107,22 @@ export function SalesFormEdit({
           <input type="text" value={sale.user?.name} readOnly />
         </label>
 
-        <label>
-          Produtos:
-          <select disabled>
+        <div className={Style.detailsBlock}>
+          <span>Produtos do pedido</span>
+          <div className={Style.productsList}>
             {sale.products.map((p) => (
-              <option key={p.id}>{p.name}</option>
+              <div key={p.id} className={Style.productItem}>
+                <strong>{p.name}</strong>
+                <span>
+                  {Number(p.price).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </span>
+              </div>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
 
         <label>
           Total:

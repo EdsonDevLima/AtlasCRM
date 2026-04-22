@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ICustomer } from "../../../types/customers";
 import Style from "./customersEdit.module.css"; 
 import { IoClose } from "react-icons/io5";
@@ -18,8 +18,6 @@ export function CustomerFormEdit({
   onClose: () => void;
   onUpdated?: () => Promise<void> | void;
 }) {
-  if (!displayModal) return null;
-
   const [formData, setFormData] = useState<ICustomer>({
     ...Customers,
     adress: Customers.adress || {
@@ -31,6 +29,21 @@ export function CustomerFormEdit({
     }
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setFormData({
+      ...Customers,
+      adress: Customers.adress || {
+        street: "",
+        number: "",
+        city: "",
+        state: "",
+        zip: ""
+      }
+    });
+  }, [Customers]);
+
+  if (!displayModal) return null;
 
   const handleChange = (field: keyof ICustomer, value: string) => {
     setFormData((prev) => ({

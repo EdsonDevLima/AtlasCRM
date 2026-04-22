@@ -1,30 +1,212 @@
 .AuthSection{
-   width: 100%;
-   height: 100vh;
-   padding: 96px 16px 16px;
+   min-height: 100vh;
+   padding: 120px 20px 32px;
    display: flex;
-   flex-direction: column;
-   justify-content: center;
    align-items: center;
+   justify-content: center;
+   background:
+    radial-gradient(circle at top left, rgba(111, 181, 166, 0.22), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(37, 56, 85, 0.18), transparent 30%),
+    linear-gradient(135deg, #f4efe4 0%, #e7e6de 45%, #d9e2dd 100%);
 }
 
-.AuthSection form{
-    width: min(100%, 460px);
-    min-width: 0;
-    gap: 10px;
-    padding: 18px 12px;
+.authContent{
+    width: min(1120px, 100%);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 460px);
+    align-items: stretch;
+    gap: 24px;
 }
+
+.authHero{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    color: #1f304a;
+}
+
+.badge{
+    width: fit-content;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(37, 56, 85, 0.1);
+    color: #253855;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.authHero h1{
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 1.05;
+}
+
+.authHero p{
+    max-width: 58ch;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(31, 48, 74, 0.82);
+}
+
+.heroHighlights{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.heroHighlights div{
+    padding: 18px;
+    border: 1px solid rgba(37, 56, 85, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 14px 40px rgba(37, 56, 85, 0.08);
+}
+
+.heroHighlights strong{
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.heroHighlights span{
+    display: block;
+    color: rgba(31, 48, 74, 0.78);
+    line-height: 1.5;
+}
+
+.authForm{
+    width: 100%;
+    gap: 16px;
+    padding: 32px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 28px;
+    background: rgba(37, 56, 85, 0.96);
+    box-shadow: 0 24px 60px rgba(23, 36, 54, 0.24);
+    backdrop-filter: blur(14px);
+}
+
+.formHeader{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formHeader span{
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8eb7ff;
+    font-weight: 700;
+}
+
+.formHeader h2{
+    margin: 0;
+    font-size: 2rem;
+}
+
+.formHeader p{
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.5;
+}
+
+.authForm label{
+    width: 100%;
+    gap: 8px;
+    color: #e9eef7;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.authForm input{
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(142, 183, 255, 0.18);
+    border-radius: 14px;
+    background: rgba(12, 22, 37, 0.42);
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+}
+
+.authForm input::placeholder{
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.authForm input:focus{
+    border-color: #8eb7ff;
+    background: rgba(12, 22, 37, 0.62);
+    transform: translateY(-1px);
+}
+
 .changeModeButton{
-    text-decoration: dotted;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #9dc3ff;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    transition: color 0.2s;
+}
+
+.changeModeButton:hover{
+    color: #c8ddff;
+}
+
+@media (max-width: 900px) {
+    .authContent{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .authHero{
+        padding: 12px 4px;
+    }
 }
 
 @media (max-width: 768px) {
     .AuthSection{
-        padding-top: 88px;
+        padding: 96px 14px 20px;
+        align-items: flex-start;
     }
 
-    .AuthSection form{
-        width: 100%;
+    .authHero{
+        gap: 14px;
+    }
+
+    .heroHighlights{
+        grid-template-columns: 1fr;
+    }
+
+    .authForm{
+        padding: 24px 18px;
+        border-radius: 22px;
+    }
+
+    .formHeader h2{
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .AuthSection{
+        padding-inline: 10px;
+    }
+
+    .authForm{
+        padding: 22px 14px;
+    }
+
+    .authHero h1{
+        font-size: 1.9rem;
     }
 }
