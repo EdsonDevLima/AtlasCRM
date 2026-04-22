@@ -81,7 +81,7 @@ export function ProductEntryReport() {
         className={Styles.reportTitle} 
         onClick={() => setIsOpen(!isOpen)}
       >
-        Relatório de entrada por semana (últimos 30 dias)
+        Relatório de entrada por semana 
         <span className={`${Styles.arrow} ${isOpen ? Styles.arrowOpen : ''}`}>
           ▼
         </span>

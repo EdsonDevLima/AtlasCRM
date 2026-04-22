@@ -84,7 +84,8 @@ border: none;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding: 140px 24px 32px;
+  padding-top: 55px;
+  padding-left: 75px ;
   gap: 16px;
   top: 80px;
   position: relative;
@@ -278,4 +279,9 @@ border: none;
     margin: 0;
     padding: 16px;
   }
+}
+@media (min-width:768px){
+    .header-actions{
+        padding-left: 75px;
+    }
 }

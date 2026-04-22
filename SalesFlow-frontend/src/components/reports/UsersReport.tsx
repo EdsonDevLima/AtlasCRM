@@ -85,7 +85,7 @@ export function UsersReport() {
         className={Styles.reportTitle} 
         onClick={() => setIsOpen(!isOpen)}
       >
-        Relatório de clientes por semana (últimos 30 dias)
+        Relatório de clientes por semana 
         <span className={`${Styles.arrow} ${isOpen ? Styles.arrowOpen : ''}`}>
           ▼
         </span>

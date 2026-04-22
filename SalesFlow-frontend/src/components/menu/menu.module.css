@@ -2,7 +2,7 @@
     width: 72px;
     min-height: calc(100vh - 80px);
     position: fixed;
-    background-color: #101927e0;
+    background-color: #101927;
     z-index: 999;
     display: flex;
     flex-direction: column;

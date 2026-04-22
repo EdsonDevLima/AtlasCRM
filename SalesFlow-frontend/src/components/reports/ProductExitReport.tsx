@@ -81,7 +81,7 @@ export function ProductExitReport() {
         className={Styles.reportTitle} 
         onClick={() => setIsOpen(!isOpen)}
       >
-        Relatório de vendas por semana (últimos 30 dias)
+        Relatório de vendas por semana 
         <span className={`${Styles.arrow} ${isOpen ? Styles.arrowOpen : ''}`}>
           ▼
         </span>
