@@ -53,16 +53,6 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             Acesse sua conta para acompanhar vendas, atualizar cadastros e manter o
             time produtivo em qualquer tela.
           </p>
-          <div className={Style.heroHighlights}>
-            <div>
-              <strong>Desktop</strong>
-              <span>Painel mais confortável para gestão diária.</span>
-            </div>
-            <div>
-              <strong>Mobile</strong>
-              <span>Login rápido e leitura mais limpa em telas menores.</span>
-            </div>
-          </div>
         </div>
 
         <form onSubmit={handleSubmit} className={Style.authForm}>
