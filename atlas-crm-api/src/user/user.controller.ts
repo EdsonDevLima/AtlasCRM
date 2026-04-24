@@ -37,6 +37,7 @@ export class UserController {
 
             const salt = bcrypt.genSaltSync(10)
             newUser.password = bcrypt.hashSync(body.password, salt)
+            newUser.permisions = ["write","read","update"]
 
             await this.service.createUser(newUser)
 

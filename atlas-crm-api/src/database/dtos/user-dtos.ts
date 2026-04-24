@@ -40,4 +40,5 @@ export interface payloadJwt {
   sub: number,
   email: string,
   role: string,
+  permisions:string[]
 };

@@ -20,7 +20,8 @@ export class AuthService {
                 const payloadToken:payloadJwt = {
                     role: user.role,
                     email: user.email,
-                    sub: user.id
+                    sub: user.id,
+                    permisions:user.permisions             
                 }
 
                 const token =  this.jwtService.sign(payloadToken,{secret:process.env.SECRET_JWT})
@@ -44,6 +45,7 @@ export class AuthService {
     newUser.password = await bcrypt.hash(userLogin.password, 10) 
     newUser.cpf = "00000000"
     newUser.role = "admin"
+    newUser.permisions = ["write","read","update"]
 
     try{
         await this.service.createUser(newUser)
@@ -51,7 +53,8 @@ export class AuthService {
                 const payloadToken:payloadJwt = {
                     role: newUser.role,
                     email: newUser.email,
-                    sub: newUser.id
+                    sub: newUser.id,
+                    permisions:newUser.permisions
                 }
         const token = this.jwtService.sign(payloadToken,{secret:process.env.SECRET_JWT}) 
 

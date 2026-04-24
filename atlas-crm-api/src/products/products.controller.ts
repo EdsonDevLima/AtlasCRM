@@ -24,7 +24,6 @@ export class ProductsController {
             newProduct.category = body.category
             newProduct.isPromotion = body.isPromotion
             newProduct.status = body.status
-            console.log("arquivo",JSON.stringify(file) )
             if (file) {
                     newProduct.image = file.filename
                     }
