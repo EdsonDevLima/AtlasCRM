@@ -120,6 +120,15 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             className={Style.changeModeButton}
           >
           </button>
+          <button
+            type="button"
+            onClick={() => setIsLogin(!isLogin)}
+            className={Style.changeModeButton}
+          >
+            {isLogin
+              ? "Não tem conta? Criar conta"
+              : "Já tem conta? Fazer login"}
+          </button>
 
           <ButtonLoading 
             loading={loading} 
