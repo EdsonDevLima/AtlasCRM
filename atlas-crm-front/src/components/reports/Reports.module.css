@@ -5,6 +5,7 @@
   width: min(100%, 560px);
   flex: 1 1 320px;
   min-width: 0;
+  max-width: 350px;
 }
 
 .reportTitle {

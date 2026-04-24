@@ -3,6 +3,8 @@
   border: solid 1px #cccccc91;
   padding: 5px;
   margin-bottom: 20px;
+  min-width: 350px;
+  max-height: 450px;
 }
 
 .filterHeader {
