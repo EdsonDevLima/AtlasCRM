@@ -28,6 +28,8 @@ export class AuthService {
                 return { sucess: true, token }
 
             }
+        }else{
+            return { sucess: false, message: "Usuario não encontrado" }
         }
     }
     async RegisterUser(userLogin: IRegisterUser){
