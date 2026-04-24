@@ -119,7 +119,6 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             onClick={() => setIsLogin(!isLogin)}
             className={Style.changeModeButton}
           >
-            {isLogin ? "Ainda não possuo conta" : "Já possuo conta"}
           </button>
 
           <ButtonLoading 
