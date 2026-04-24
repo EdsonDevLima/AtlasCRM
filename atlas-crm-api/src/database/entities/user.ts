@@ -15,8 +15,8 @@ export class User {
     email: string
     @Column()
     password: string
-    @Column('simple-array', { default: '' })
-    permisions:string[]
+    @Column('simple-array', { nullable: true })
+    permisions: string[]
     @Column()
     role: string
     @OneToOne(() => Adress, (adress) => adress.user, { cascade: true })

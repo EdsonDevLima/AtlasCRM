@@ -9,6 +9,7 @@ import { AuthController } from './auth.controller';
   imports: [UserModule,JwtModule.register({
       secret: process.env.SECRET_JWT, 
     }),],
+  exports: [JwtModule],
   controllers: [AuthController]
 })
 export class AuthModule { }
