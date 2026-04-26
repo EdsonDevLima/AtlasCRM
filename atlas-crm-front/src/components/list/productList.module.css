@@ -78,8 +78,9 @@
 
 @media (max-width: 768px) {
   .listProducts {
-    padding: 160px 12px 24px;
     gap: 12px;
+    padding-left: 0px;
+    padding-top: 90px;
   }
 
   .cardProduct {
