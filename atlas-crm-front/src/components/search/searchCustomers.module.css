@@ -9,7 +9,7 @@
 .SearchCustomers input{
     width: 100%;
     min-height: 32px;
-    border-radius: 3px;
+    border-radius: 5px;
     border: solid 1px black;
     outline: none;
     padding: 3px;

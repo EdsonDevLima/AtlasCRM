@@ -21,9 +21,9 @@
 }
 
 .conteinerFormProducts{
-    background-color: #2d3e50;
+    background-color: var(--color-primary-strong);
     z-index: 999;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 50px 30px 30px 30px;
     width: 100%;
     max-height: calc(100vh - 120px);
@@ -59,7 +59,7 @@
     width: 100%;
     color: white;
     margin: 0 0 20px 0;
-    font-size: 26px;
+    font-size: var(--font-size-3xl);
     font-weight: 600;
 }
 
@@ -68,9 +68,9 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
-    color: #e0e0e0;
+    color: var(--color-surface-alt);
     font-weight: 500;
-    font-size: 15px;
+    font-size: var(--font-size-sm);
 }
 
 /* Label para descrição - largura total */
@@ -82,24 +82,24 @@
 .modalFormProduct form input[type="number"]{
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #3a4a5f;
-    border-radius: 6px;
-    background-color: #1e2d3d;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: var(--color-primary-strong);
     color: white;
-    font-size: 15px;
+    font-size: var(--font-size-sm);
     outline: none;
     transition: all 0.3s;
 }
 
 .modalFormProduct form input[type="text"]:focus,
 .modalFormProduct form input[type="number"]:focus{
-    border-color: #4a90e2;
-    background-color: #253544;
+    border-color: var(--color-accent);
+    background-color: var(--color-primary);
 }
 
 .modalFormProduct form input[type="text"]::placeholder,
 .modalFormProduct form input[type="number"]::placeholder{
-    color: #7a8a9f;
+    color: var(--color-text-muted);
 }
 
 .modalFormProduct form textarea{
@@ -110,11 +110,11 @@
     height: 90px;
     max-height: 150px;
     padding: 12px 14px;
-    border: 1px solid #3a4a5f;
-    border-radius: 6px;
-    background-color: #1e2d3d;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: var(--color-primary-strong);
     color: white;
-    font-size: 15px;
+    font-size: var(--font-size-sm);
     outline: none;
     resize: vertical;
     font-family: inherit;
@@ -122,30 +122,30 @@
 }
 
 .modalFormProduct form textarea:focus{
-    border-color: #4a90e2;
-    background-color: #253544;
+    border-color: var(--color-accent);
+    background-color: var(--color-primary);
 }
 
 .modalFormProduct form select{
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #3a4a5f;
-    border-radius: 6px;
-    background-color: #1e2d3d;
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: var(--color-primary-strong);
     color: white;
-    font-size: 15px;
+    font-size: var(--font-size-sm);
     outline: none;
     cursor: pointer;
     transition: all 0.3s;
 }
 
 .modalFormProduct form select:focus{
-    border-color: #4a90e2;
-    background-color: #253544;
+    border-color: var(--color-accent);
+    background-color: var(--color-primary);
 }
 
 .modalFormProduct form select option{
-    background-color: #1e2d3d;
+    background-color: var(--color-primary-strong);
     color: white;
 }
 
@@ -165,11 +165,11 @@
     width: 36px;
     height: 36px;
     background-color: rgba(255, 255, 255, 0.1);
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
 }
 
 .closeFormProduct:hover{
-    background-color: #e74c3c;
+    background-color: var(--color-danger);
     transform: rotate(90deg);
 }
 
@@ -198,16 +198,16 @@
 }
 
 .labelCheckbox span{
-    color: #e0e0e0;
+    color: var(--color-surface-alt);
     font-weight: 500;
-    font-size: 15px;
+    font-size: var(--font-size-sm);
 }
 
 .labelCheckbox input[type="checkbox"]{
     width: 22px !important;
     height: 22px;
     cursor: pointer;
-    accent-color: #4a90e2;
+    accent-color: var(--color-accent);
 }
 
 .fileInput {
@@ -221,31 +221,31 @@
     width: 100%;
     height: 50px;
     margin: 0;
-    background-color: #1e2d3d;
-    color: #e0e0e0;
-    border-radius: 6px;
+    background-color: var(--color-primary-strong);
+    color: var(--color-surface-alt);
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
     padding: 12px;
     font-weight: 500;
-    font-size: 15px;
-    border: 2px dashed #3a4a5f;
+    font-size: var(--font-size-sm);
+    border: 2px dashed var(--color-primary);
 }
 
 .customFileButton:hover {
-    background-color: #253544;
-    border-color: #4a90e2;
+    background-color: var(--color-primary);
+    border-color: var(--color-accent);
     color: white;
 }
 
 .buttonRegister {
     width: 100%;
     padding: 14px;
-    background-color: #27ae60;
+    background-color: var(--color-accent);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: var(--font-size-md);
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -255,7 +255,7 @@
 }
 
 .buttonRegister:hover {
-    background-color: #229954;
+    background-color: #3d8f5a;
 }
 
 .previewImage {
@@ -265,8 +265,8 @@
     height: auto;
     max-height: 250px;
     object-fit: cover;
-    border-radius: 6px;
-    border: 2px solid #3a4a5f;
+    border-radius: 5px;
+    border: 2px solid var(--color-primary);
 }
 
 @media (max-width: 900px) {
@@ -295,7 +295,7 @@
         padding: 56px 18px 18px 18px;
         max-height: none;
         overflow: visible;
-        border-radius: 14px;
+        border-radius: 5px;
         position: relative;
         z-index: 1003;
         margin-bottom: 24px;
@@ -309,7 +309,7 @@
     }
     
     .modalFormProduct form h2{
-        font-size: 22px;
+        font-size: 1.375rem;
     }
 
     .closeFormProduct{
@@ -317,7 +317,7 @@
         right: 12px;
         width: 32px;
         height: 32px;
-        font-size: 20px;
+        font-size: var(--font-size-xl);
         z-index: 1005;
     }
     
@@ -339,7 +339,7 @@
     }
 
     .modalFormProduct form h2{
-        font-size: 20px;
+        font-size: var(--font-size-xl);
     }
 }
 
@@ -349,15 +349,15 @@
 }
 
 .conteinerFormProducts::-webkit-scrollbar-track {
-    background: #2d3e50;
-    border-radius: 4px;
+    background: var(--color-primary-strong);
+    border-radius: 5px;
 }
 
 .conteinerFormProducts::-webkit-scrollbar-thumb {
-    background: #3a4a5f;
-    border-radius: 4px;
+    background: var(--color-primary);
+    border-radius: 5px;
 }
 
 .conteinerFormProducts::-webkit-scrollbar-thumb:hover {
-    background: #4a5a6f;
+    background: var(--color-text-muted);
 }

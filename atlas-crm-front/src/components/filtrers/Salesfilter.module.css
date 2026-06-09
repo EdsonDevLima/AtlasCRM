@@ -1,49 +1,52 @@
 .filterContainer {
-  background-color: white;
-  border: solid 1px #cccccc91;
-  padding: 5px;
+  background-color: var(--color-surface);
+  border: solid 1px var(--color-border);
+  padding: 0;
   margin-bottom: 20px;
-  min-width: 350px;
   max-height: 450px;
+  overflow: hidden;
+  border-radius: 5px;
 }
 
 .filterHeader {
-  min-width: 250px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: solid 1px #cccccc91;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: solid 1px var(--color-border);
+  background: linear-gradient(135deg, #1c2b42, #253855);
 }
 
 .filterHeader h3 {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   margin: 0;
-  color: #333;
+  color: var(--color-surface);
 }
 
 .advancedToggle {
   background-color: transparent;
-  color: #666;
-  border: solid 1px #cccccc91;
+  color: var(--color-text-muted);
+  border: solid 1px var(--color-border);
   padding: 8px 8px;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 5px;
+  font-size: var(--font-size-xs);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .advancedToggle:hover {
-  background-color: #f5f5f5;
-  border-color: #999;
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-text-muted);
 }
 
 .filterGroup {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 14px;
 }
 
 .filterRow {
@@ -59,26 +62,26 @@
 }
 
 .filterItem label {
-  color: #333;
-  font-size: 14px;
+  color: var(--color-text-strong);
+  font-size: var(--font-size-xs);
   font-weight: 500;
 }
 
 .select,
 .input {
   padding: 10px;
-  border: solid 1px #cccccc91;
-  border-radius: 4px;
-  font-size: 14px;
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+  font-size: var(--font-size-xs);
   background-color: white;
-  color: #333;
+  color: var(--color-text-strong);
   transition: all 0.2s ease;
 }
 
 .select:focus,
 .input:focus {
   outline: none;
-  border-color: #999;
+  border-color: var(--color-text-muted);
 }
 
 .select {
@@ -86,17 +89,17 @@
 }
 
 .input::placeholder {
-  color: #999;
+  color: var(--color-text-muted);
 }
 
 .clearButton {
   margin-top: 15px;
-  background-color: #dc3545;
+  background-color: var(--color-danger);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 5px;
+  font-size: var(--font-size-xs);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -104,24 +107,22 @@
 }
 
 .clearButton:hover {
-  background-color: #c82333;
+  background-color: #b83c3c;
 }
 
 @media (max-width: 768px) {
 
   .filterContainer {
-    padding: 15px;
-    max-width: 280px;
+    max-width: 100%;
   }
 
   .filterHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: row;
+    align-items: center;
   }
 
   .advancedToggle {
-    width: 35%;
+    width: auto;
   }
 
   .filterRow {

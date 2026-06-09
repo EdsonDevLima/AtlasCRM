@@ -22,19 +22,21 @@ export function Dashboard(){
     return <>
     <HeaderWorkspace/>
     <section className={Styles.sectionReports}>
-
-        <SalesFilter onFilterChange={handleFilterChange} />
-
-        <div className={Styles.conteinerNotification}>
-            <h2>Últimos clientes cadastrados.</h2>
-            <div className={Styles.conteinerListDashboard}>
-                <RecentCustomers />
-            </div>
+        <div className={Styles.filtersArea}>
+            <SalesFilter onFilterChange={handleFilterChange} />
         </div>
-        <div className={Styles.conteinerNotification}>
-            <h2>Últimos Pedidos.</h2>
-            <div className={Styles.conteinerListDashboard}>
-                <RecentSales filters={salesFilters} />
+        <div className={Styles.leftColumn}>
+            <div className={Styles.conteinerNotification}>
+                <h2>Últimos clientes cadastrados.</h2>
+                <div className={Styles.conteinerListDashboard}>
+                    <RecentCustomers />
+                </div>
+            </div>
+            <div className={Styles.conteinerNotification}>
+                <h2>Últimos Pedidos.</h2>
+                <div className={Styles.conteinerListDashboard}>
+                    <RecentSales filters={salesFilters} />
+                </div>
             </div>
         </div>
         <div className={Styles.conteinerReport}>

@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from 'recharts';
 import api from '../../service/api';
 import type { SalesResult } from '../../types/sales';
 import Styles from './Reports.module.css';
@@ -9,6 +20,13 @@ type ChartData = {
   sales: number;
 };
 
+type PieData = {
+  name: string;
+  value: number;
+};
+
+const PIE_COLORS = ['#1f7a3f', '#2f9e52', '#e0b300', '#1c2b42'];
+
 export function ProductExitReport() {
   const [isOpen, setIsOpen] = useState(true);
   const [chartData, setChartData] = useState<ChartData[]>([
@@ -17,6 +35,7 @@ export function ProductExitReport() {
     { week: 'Terceira Semana', sales: 0 },
     { week: 'Quarta Semana', sales: 0 },
   ]);
+  const [pieData, setPieData] = useState<PieData[]>([]);
 
   const [allSales, setAllSales] = useState<SalesResult[]>([]);
 
@@ -73,7 +92,19 @@ export function ProductExitReport() {
     });
 
     setChartData(newChartData);
+    setPieData(
+      newChartData.map((item) => ({
+        name: item.week,
+        value: item.sales,
+      }))
+    );
   }, [allSales]);
+
+  const totalSales = chartData.reduce((sum, item) => sum + item.sales, 0);
+  const peakWeek = chartData.reduce(
+    (best, current) => (current.sales > best.sales ? current : best),
+    chartData[0]
+  );
 
   return (
     <div className={Styles.reportContainer}>
@@ -88,21 +119,64 @@ export function ProductExitReport() {
       </h3>
       
       <div className={`${Styles.chartWrapper} ${isOpen ? Styles.chartOpen : ''}`}>
-        <div className={Styles.chartInner}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <XAxis dataKey="week" tick={{ fontSize: 12 }} />
-              <YAxis allowDecimals={false} />
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: "12px" }} />
-              <Bar
-                dataKey="sales"
-                name="Vendas realizadas na semana"
-                fill="#b3c433ff"
-                radius={[6, 6, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
+        <div className={Styles.reportSummary}>
+          <div>
+            <span>Total no período</span>
+            <strong>{totalSales}</strong>
+          </div>
+          <div>
+            <span>Semana mais forte</span>
+            <strong>{peakWeek.week}</strong>
+          </div>
+        </div>
+
+        <div className={Styles.dualChartGrid}>
+          <div className={Styles.chartPanel}>
+            <h4 className={Styles.chartLabel}>Vendas por semana</h4>
+            <div className={Styles.chartInner}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                  <XAxis dataKey="week" tick={{ fontSize: 12 }} />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Legend wrapperStyle={{ fontSize: "12px" }} />
+                  <Bar
+                    dataKey="sales"
+                    name="Vendas realizadas na semana"
+                    fill="#b3c433ff"
+                    radius={[5, 5, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className={Styles.chartPanel}>
+            <h4 className={Styles.chartLabel}>Distribuição circular</h4>
+            <div className={Styles.chartInner}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    dataKey="value"
+                    nameKey="name"
+                    innerRadius={58}
+                    outerRadius={92}
+                    paddingAngle={3}
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                    label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                  >
+                    {pieData.map((_, index) => (
+                      <Cell key={`sales-cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend wrapperStyle={{ fontSize: "12px" }} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -2,11 +2,11 @@
   width: 100%;
   padding: 10px;
   border: none;
-  background: #4f46e5;
+  background: var(--color-accent);
   color: white;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 5px;
   transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -27,7 +27,7 @@
 .spinner {
   width: 18px;
   height: 18px;
-  border: 3px solid #fff;
+  border: 3px solid var(--color-surface);
   border-top: 3px solid transparent;
   border-radius: 50%;
   display: inline-block;

@@ -3,27 +3,44 @@
     min-height: 100vh;
     padding-top:100px ;
     padding-left: 75px;
+    display: grid;
+    grid-template-columns: minmax(320px, 360px) minmax(0, 1fr);
+    grid-template-areas:
+        "filters filters"
+        "left reports";
+    gap: 20px;
+    align-items: start;
+}
+.filtersArea{
+    grid-area: filters;
+}
+.leftColumn{
+    grid-area: left;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 25px;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 0;
 }
 .conteinerNotification{
-    min-width: 20%;
-    background-color: white;
-    max-height: 400px;
+    width: 100%;
+    background-color: var(--color-surface);
+    max-height: 420px;
     overflow: auto;
+    border-radius: 5px;
+    box-shadow: 0 10px 28px rgba(37, 56, 85, 0.06);
 }
 .conteinerNotification h2{
     text-align: center;
-    font-size: 20px;
+    font-size: var(--font-size-xl);
     padding: 5px;
-    border: solid 1px #cccccc91;
+    border: solid 1px var(--color-border);
+    background: linear-gradient(135deg, #1c2b42, #253855);
+    color: var(--color-surface);
 }
 .conteinerListDashboard{
     overflow: scroll;
     width: 100%;
-    min-width: 350px;
+    min-width: 0;
     min-height: 450px;
     position: relative;
 }
@@ -31,20 +48,25 @@
     position: sticky;
 }
 .conteinerReport{
+    grid-area: reports;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
     gap: 20px;
+    min-width: 0;
 }
 
 @media (max-width: 768px) {
     .sectionReports{
-        padding-left: 0px;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "filters"
+            "left"
+            "reports";
         padding-right: 0px;
     }
     .conteinerNotification{
-        width: 280px;
+        width: 100%;
     }
 
     .conteinerReport{

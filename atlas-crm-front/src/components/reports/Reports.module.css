@@ -1,28 +1,32 @@
 .reportContainer {
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
   margin-bottom: 1rem;
-  width: min(100%, 560px);
-  flex: 1 1 320px;
+  width: 100%;
   min-width: 0;
-  max-width: 350px;
+  max-width: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 28px rgba(37, 56, 85, 0.06);
 }
 
 .reportTitle {
   margin: 0;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #1c2b42, #253855);
   cursor: pointer;
   user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: background-color 0.2s;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 1rem;
+  color: var(--color-surface);
 }
 
 .reportTitle:hover {
-  background-color: #919191;
+  filter: brightness(0.985);
 }
 
 .arrow {
@@ -43,14 +47,63 @@
 }
 
 .chartOpen {
-  max-height: 520px;
+  max-height: 900px;
   padding: 0.5rem 1rem 1rem;
 }
 
 .chartInner {
   width: 100%;
-  height: 320px;
+  height: 340px;
 }
+
+.reportSummary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.reportSummary div {
+  background: linear-gradient(135deg, var(--color-surface-alt), #e8efe5);
+  border: 1px solid rgba(76, 175, 80, 0.14);
+  border-radius: 5px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.reportSummary span {
+  color: #5f6b66;
+  font-size: 0.8rem;
+}
+
+.reportSummary strong {
+  color: var(--color-text-strong);
+  font-size: 1.05rem;
+}
+
+.dualChartGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.95fr);
+  gap: 1rem;
+}
+
+.chartPanel {
+  background: linear-gradient(180deg, var(--color-surface) 0%, #f1ebdf 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  padding: 0.95rem;
+  box-shadow: 0 8px 24px rgba(37, 56, 85, 0.05);
+  min-width: 0;
+}
+
+.chartLabel {
+  margin: 0 0 0.65rem;
+  font-size: 0.92rem;
+  color: #1c2b42;
+}
+
 @media (max-width:786px) {
   .reportContainer{
     width: 100%;
@@ -62,6 +115,14 @@
 
   .chartOpen {
     padding: 0.5rem 0 1rem;
+  }
+
+  .reportSummary {
+    grid-template-columns: 1fr;
+  }
+
+  .dualChartGrid {
+    grid-template-columns: 1fr;
   }
 
   .chartInner {
