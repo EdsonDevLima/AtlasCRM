@@ -67,6 +67,12 @@ export class AppModule implements NestModule {
         { path: 'auth/login', method: RequestMethod.POST },
         { path: 'auth/register', method: RequestMethod.POST },
         { path: 'auth/verify-token', method: RequestMethod.POST },
+        { path: 'user/create', method: RequestMethod.POST },
+        { path: 'products/all', method: RequestMethod.GET },
+        { path: 'products/:id', method: RequestMethod.GET },
+        { path: 'products/image/:filename', method: RequestMethod.GET },
+        { path: 'sales/create', method: RequestMethod.POST },
+        { path: 'products/update', method: RequestMethod.PUT },
         
       )
       .forRoutes('*');

@@ -16,7 +16,11 @@ export class UserController {
         try {
             const userExist = await this.service.getUser(body.email,null)
             if(userExist.user){
-                 throw new HttpException(`Já existe um usuario com esse email.`, HttpStatus.BAD_REQUEST)
+                 return {
+                    message: "Usuario já existente",
+                    userId: userExist.user.id,
+                    existing: true
+                 }
             }
             
             const newUser = new User()
@@ -41,7 +45,7 @@ export class UserController {
 
             await this.service.createUser(newUser)
 
-            return { message: "Usuario criado com sucesso" }
+            return { message: "Usuario criado com sucesso", userId: newUser.id, existing: false }
 
         } catch (error) {
             throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)

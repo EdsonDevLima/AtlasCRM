@@ -46,4 +46,14 @@ export class SalesController {
             throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @Get(':email')
+    async getbyUser(@Param('email') email: string) {
+        try {
+            const sale = await this.service.getSaleByEmail(email)
+            if (!sale) throw new HttpException('Venda não encontrada', HttpStatus.NOT_FOUND);
+            return sale;
+        } catch (error) {
+            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

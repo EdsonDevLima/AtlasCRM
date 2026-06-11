@@ -43,6 +43,9 @@ async createSale(dto: ISaleDto) {
     async getSaleById(id: number) {
         return await this.saleRepository.findOne({ where: { id }, relations: ['user', 'products'] });
     }
+    async getSaleByEmail(email: string) {
+        return await this.saleRepository.findOne({ where: { user:{email} }, relations: ['user', 'products'] });
+    }
     async updateSale(sale:ISaleDto) {
             try {
                 const saleExist = await this.saleRepository.findOne({ where: { id: sale.id } })
