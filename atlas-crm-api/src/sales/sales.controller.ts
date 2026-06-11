@@ -46,7 +46,7 @@ export class SalesController {
             throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @Get(':email')
+    @Get('/user/order/:email')
     async getbyUser(@Param('email') email: string) {
         try {
             const sale = await this.service.getSaleByEmail(email)
